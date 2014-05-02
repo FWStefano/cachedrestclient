@@ -6,6 +6,7 @@
   <artifactId>crc</artifactId>
   <version>0.1</version>
   <packaging>aar</packaging>
+  <name>Android Cache Library</name>
   <dependencies>
     <dependency>
       <groupId>com.google.code.gson</groupId>
