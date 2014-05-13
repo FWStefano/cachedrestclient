@@ -161,9 +161,9 @@ public class CachedRestClient {
 
         boolean isExpired = lastUpdated.after(new Date(cacheElement.getTimestamp()));
 
-        Log.d("GETCONTENT","LASTUPDATED "+lastUpdated);
-        Log.d("GETCONTENT","CACHE TIMESTAMP "+new Date(cacheElement.getTimestamp()));
-        Log.d("GETCONTENT","isExpired "+isExpired);
+        Utils.log(TAG,"lastUpdated: "+lastUpdated);
+        Utils.log(TAG,"cache timestamp: "+new Date(cacheElement.getTimestamp()));
+        Utils.log(TAG,"isExpired: "+isExpired);
 
         if(isExpired)
             return getContent(url, -1, true);
