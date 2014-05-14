@@ -96,25 +96,26 @@ public class CachedRestClient {
 
     // PUBLIC METHODS
 
-	public CacheElement getBestContent(String url) throws Exception {
-		// if connection available, try to get fresh data
-		if(isOnline()) {
-			Utils.log(TAG,"is online");
-			try {
-				Utils.log(TAG,"retrive content from network");
-				return getContent(url, -1, true); // if online, retrieve fresh content
-			}
-			catch(Exception e) {
-				Utils.log(TAG,"error on network - retrieve content from cache");
-				return getContent(url, -1, false); // if error, retrieve cache content
-			}
-		}
-		else {
-			// otherwise try to get cache content
-			Utils.log(TAG,"is offline - retrieve content from cache");
-			return getContent(url, -1, false); // if not online, retrieve cache content
-		}
-	}
+//	public CacheElement getBestContent(String url) throws Exception {
+//		// if connection available, try to get fresh data
+////		if(isOnline()) {
+////			Utils.log(TAG,"is online");
+////			try {
+////				Utils.log(TAG,"retrive content from network");
+////				return getContent(url, -1, true); // if online, retrieve fresh content
+////			}
+////			catch(Exception e) {
+////				Utils.log(TAG,"error on network - retrieve content from cache");
+////				return getContent(url, -1, false); // if error, retrieve cache content
+////			}
+////		}
+////		else {
+////			// otherwise try to get cache content
+////			Utils.log(TAG,"is offline - retrieve content from cache");
+////			return getContent(url, -1, false); // if not online, retrieve cache content
+////		}
+//        return getContent(url, -1, isOnline()); // DOES THIS MAKE SENSE? :D
+//    }
     /**
      * @param url - the url to call (from network or cache)
      * @param ttl - the time to live for this cache element (-1 for infinite)
@@ -165,7 +166,8 @@ public class CachedRestClient {
         Utils.log(TAG,"isExpired: "+isExpired);
 
         if(isExpired)
-            return getContent(url, -1, true);
+            return getContent(url, -1, isOnline()); // update from network only if online
+            // or should it be always true? in this case if the network is not available, the content (expired) is not available
         else
             return cacheElement;
     }
