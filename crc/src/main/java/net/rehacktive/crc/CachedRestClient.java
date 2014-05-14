@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 
@@ -97,25 +96,25 @@ public class CachedRestClient {
 
     // PUBLIC METHODS
 
-//	public CacheElement getBestContent(String url, int ttl) throws Exception {
-//		// if connection available, try to get fresh data
-//		if(isOnline()) {
-//			Utils.log(TAG,"is online");
-//			try {
-//				Utils.log(TAG,"retrive content from network");
-//				return getContent(url, -1, true); // if online, retrieve fresh content
-//			}
-//			catch(Exception e) {
-//				Utils.log(TAG,"error on network - retrieve content from cache");
-//				return getContent(url, -1, false); // if error, retrieve cache content
-//			}
-//		}
-//		else {
-//			// otherwise try to get cache content
-//			Utils.log(TAG,"is offline - retrieve content from cache");
-//			return getContent(url, -1, false); // if not online, retrieve cache content
-//		}
-//	}
+	public CacheElement getBestContent(String url) throws Exception {
+		// if connection available, try to get fresh data
+		if(isOnline()) {
+			Utils.log(TAG,"is online");
+			try {
+				Utils.log(TAG,"retrive content from network");
+				return getContent(url, -1, true); // if online, retrieve fresh content
+			}
+			catch(Exception e) {
+				Utils.log(TAG,"error on network - retrieve content from cache");
+				return getContent(url, -1, false); // if error, retrieve cache content
+			}
+		}
+		else {
+			// otherwise try to get cache content
+			Utils.log(TAG,"is offline - retrieve content from cache");
+			return getContent(url, -1, false); // if not online, retrieve cache content
+		}
+	}
     /**
      * @param url - the url to call (from network or cache)
      * @param ttl - the time to live for this cache element (-1 for infinite)
