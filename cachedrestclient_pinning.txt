@@ -6,7 +6,7 @@ tool required:
 
 FROM SELF-SIGNED CERTIFICATE:
 
--generate your self-signed certificates (see );
+-generate your self-signed certificates (see http://www.cyberciti.biz/faq/nginx-self-signed-certificate-tutorial-on-centos-redhat-linux/);
 -generate the public key:
 
 openssl x509 -inform PEM -in self-ssl.crt > public.pem
