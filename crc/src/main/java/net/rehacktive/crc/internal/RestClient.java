@@ -1,5 +1,8 @@
 package net.rehacktive.crc.internal;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 import net.rehacktive.crc.Utils;
 
 import org.apache.http.Header;
@@ -18,6 +21,7 @@ import org.apache.http.conn.params.ConnPerRouteBean;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
@@ -33,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
+import java.security.KeyStore;
 import java.util.ArrayList;
 
 /*
@@ -203,6 +208,23 @@ public class RestClient {
 		}
 	}
 
+    private SSLSocketFactory sslSocketFactory = null;
+
+    public void constructSSLSocketFactory(Context context, String storeFile, String storePassword) {
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStream keyStoreInputStream = assetManager.open(storeFile);
+            KeyStore trustStore = KeyStore.getInstance("BKS");
+
+            trustStore.load(keyStoreInputStream, storePassword.toCharArray());
+
+            sslSocketFactory = new SSLSocketFactory(trustStore);
+            sslSocketFactory.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 	public void executeRequest(HttpUriRequest getRequest,String url) throws Exception {
 
@@ -228,7 +250,10 @@ public class RestClient {
 
 		SchemeRegistry schemeRegistry = new SchemeRegistry();
 		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-		schemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
+        if(sslSocketFactory!=null)
+            schemeRegistry.register(new Scheme("https",sslSocketFactory, 443));
+        else
+            schemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
 
 		HttpParams params = new BasicHttpParams();
 		int timeoutConnection = 60000;
