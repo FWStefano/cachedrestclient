@@ -87,6 +87,8 @@ public class CachedRestClient {
 
     private ArrayList <NameValuePair> headers;
 
+    public static String TEST = "TEST";
+
     public CachedRestClient(String cacheName, Context context) {
         ctx = context;
         PREFS_NAME = cacheName;
@@ -278,6 +280,8 @@ public class CachedRestClient {
                     client.AddHeader(h.getName(), h.getValue());
                 }
             }
+
+
             client.Execute(RestClient.RequestMethod.GET);
 
             String response = client.getResponse();
