@@ -27,7 +27,7 @@ import java.util.Map;
  *
  * CachedRestClient 
  * simply cache REST content to sharedPreferences
- * @author stefano di francisca - stefano@rehacktive.net
+ * @author stefano di francisca
  * @version 1.0
  *
  * USAGE DETAILS:
