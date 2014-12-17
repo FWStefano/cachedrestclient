@@ -315,7 +315,10 @@ public class RestClient {
 			Utils.log("DEBUG","STATUS CODE:"+status);
 
 			HttpEntity getResponseEntity = getResponse.getEntity();
-			response = convertStreamToString(getResponseEntity.getContent());
+			if(getResponseEntity!=null)
+                response = convertStreamToString(getResponseEntity.getContent());
+            else
+                response = "";
 			Utils.log("DEBUG/RESPONSE",response);
 		} 
 		catch (IOException e) {
