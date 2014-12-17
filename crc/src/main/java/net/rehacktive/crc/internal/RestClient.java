@@ -291,12 +291,14 @@ public class RestClient {
             public void process(HttpResponse response, HttpContext context) {
                 // Inflate any responses compressed with gzip
                 final HttpEntity entity = response.getEntity();
-                final Header encoding = entity.getContentEncoding();
-                if (encoding != null) {
-                    for (HeaderElement element : encoding.getElements()) {
-                        if (element.getName().equalsIgnoreCase(ENCODING_GZIP)) {
-                            response.setEntity(new InflatingEntity(response.getEntity()));
-                            break;
+                if(entity != null) {
+                    final Header encoding = entity.getContentEncoding();
+                    if (encoding != null) {
+                        for (HeaderElement element : encoding.getElements()) {
+                            if (element.getName().equalsIgnoreCase(ENCODING_GZIP)) {
+                                response.setEntity(new InflatingEntity(response.getEntity()));
+                                break;
+                            }
                         }
                     }
                 }
