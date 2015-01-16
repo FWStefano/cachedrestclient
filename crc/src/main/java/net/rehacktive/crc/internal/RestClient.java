@@ -212,7 +212,30 @@ public class RestClient {
 			executeRequest(request, url);
 			break;
 		}
+            case PATCH:
+            {
+                methodType = "PATCH";
+                HttpPut request = new HttpPut(url);
 
+                //add headers
+                for(NameValuePair h : headers)
+                {
+                    request.addHeader(h.getName(), h.getValue());
+                }
+                request.addHeader("Content-type","application/json");
+
+                if(!params.isEmpty()){
+                    request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+                }
+
+                if(body!=null) {
+                    request.setEntity(new StringEntity(body));
+
+                }
+
+                executeRequest(request, url);
+                break;
+            }
 
 
 		}
@@ -362,7 +385,8 @@ public class RestClient {
 		GET,
 		POST,
 		DELETE,
-		PUT
+		PUT,
+        PATCH
 	}
 
     private static class InflatingEntity extends HttpEntityWrapper {
