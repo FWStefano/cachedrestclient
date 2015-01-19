@@ -215,7 +215,7 @@ public class RestClient {
             case PATCH:
             {
                 methodType = "PATCH";
-                HttpPut request = new HttpPut(url);
+                HttpPatch request = new HttpPatch(url);
 
                 //add headers
                 for(NameValuePair h : headers)
