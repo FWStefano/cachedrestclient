@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 
@@ -187,11 +186,6 @@ public class CachedRestClient {
         CacheElement cacheElement = getCacheElement(url);
 
         boolean isFresh = cacheElement!=null && ((System.currentTimeMillis()-cacheElement.getTimestamp())<ttl);
-
-        Utils.log("CACHEDEBUG","url :"+url);
-        Utils.log("CACHEDEBUG","cacheElement==null :"+(cacheElement==null));
-        Utils.log("CACHEDEBUG","(ttl!=-1 && !isFresh) :"+(ttl!=-1 && !isFresh));
-        Utils.log("CACHEDEBUG","forceReload :"+forceReload);
 
         if(cacheElement==null || (ttl!=-1 && !isFresh) || forceReload) {
 
