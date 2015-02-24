@@ -87,13 +87,21 @@ public class CachedRestClient {
 
     private ArrayList <NameValuePair> headers;
 
-    public static String TEST = "TEST";
+    private static boolean logEnabled = true;
 
     public CachedRestClient(String cacheName, Context context) {
         ctx = context;
         PREFS_NAME = cacheName;
         // by default, it accepts only "200" http status as okay
         setAcceptedStatus(new ArrayList<Integer>(Arrays.asList(200)));
+    }
+
+    public static boolean isLogEnabled() {
+        return logEnabled;
+    }
+
+    public static void setLogEnabled(boolean logEnabled) {
+        CachedRestClient.logEnabled = logEnabled;
     }
 
     // PUBLIC METHODS

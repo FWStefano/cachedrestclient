@@ -3,6 +3,7 @@ package net.rehacktive.crc.internal;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import net.rehacktive.crc.CachedRestClient;
 import net.rehacktive.crc.Utils;
 
 import org.apache.http.Header;
@@ -95,6 +96,10 @@ public class RestClient {
 		body = null;
 	}
 
+    public void enableLog(boolean enable) {
+        CachedRestClient.setLogEnabled(enable);
+    }
+    
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
 	}
