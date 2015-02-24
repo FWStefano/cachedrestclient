@@ -188,10 +188,10 @@ public class CachedRestClient {
 
         boolean isFresh = cacheElement!=null && ((System.currentTimeMillis()-cacheElement.getTimestamp())<ttl);
 
-        Log.d("CACHEDEBUG","url :"+url);
-        Log.d("CACHEDEBUG","cacheElement==null :"+(cacheElement==null));
-        Log.d("CACHEDEBUG","(ttl!=-1 && !isFresh) :"+(ttl!=-1 && !isFresh));
-        Log.d("CACHEDEBUG","forceReload :"+forceReload);
+        Utils.log("CACHEDEBUG","url :"+url);
+        Utils.log("CACHEDEBUG","cacheElement==null :"+(cacheElement==null));
+        Utils.log("CACHEDEBUG","(ttl!=-1 && !isFresh) :"+(ttl!=-1 && !isFresh));
+        Utils.log("CACHEDEBUG","forceReload :"+forceReload);
 
         if(cacheElement==null || (ttl!=-1 && !isFresh) || forceReload) {
 
